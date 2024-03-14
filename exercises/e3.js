@@ -14,8 +14,15 @@
  * * getPromise(num) function must be exported
  * Example: export const getPromise(num) => return <Your code of promise>
  */
-export const getPromise = () => {
+export const getPromise = (num) => {
   // Your code goes here...
+  if (typeof num == "number" && num == Math.floor(num)) {
+    return new Promise((resolve, reject) => {
+      resolve(num);
+    });
+  } else {
+    return 0;
+  }
 };
 
 /**
@@ -31,6 +38,15 @@ export const getPromise = () => {
  */
 export const updateSumValue = () => {
   // Your code goes here...
+  const onFulfilled = (data) => {
+    return data;
+  };
+  let sum = 2;
+  const total = getPromise(120).then(onFulfilled);
+  const number = async () => {
+    sum += await total;
+  };
+  return (sum += 8);
 };
 
 // === TEST YOURSELF ===
