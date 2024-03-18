@@ -1,6 +1,6 @@
 export const getFirstResolvedPromise = (promises) => {
   //*  write code to pass test ⬇ ️
-  return Promise.any(promises).then((value) => value);
+  return Promise.any(promises);
 };
 
 export const getFirstPromiseOrFail = (promises) => {
@@ -10,26 +10,17 @@ export const getFirstPromiseOrFail = (promises) => {
 
 export const getQuantityOfRejectedPromises = (promises) => {
   //*  write code to pass test ⬇ ️
-  let i = 0;
-  return Promise.allSettled(promises)
-    .then((results) =>
-      results.forEach((result) => {
-        result.status == "rejected" ? (i += 1) : 0;
-      })
-    )
-    .then(() => i);
+  return Promise.allSettled(promises).then(
+    (results) => results.filter((result) => result.status === "rejected").length
+  );
 };
 
 export const getQuantityOfFulfilledPromises = (promises) => {
   //*  write code to pass test ⬇ ️
-  let i = 0;
-  return Promise.allSettled(promises)
-    .then((results) =>
-      results.forEach((result) => {
-        result.status == "fulfilled" ? (i += 1) : 0;
-      })
-    )
-    .then(() => i);
+  return Promise.allSettled(promises).then(
+    (results) =>
+      results.filter((result) => result.status === "fulfilled").length
+  );
 };
 
 //!  ⬇ ⬇ ⬇ ⬇ Don't Edit This Array ⬇ ⬇ ⬇ ⬇
@@ -63,12 +54,8 @@ export const fetchAllCharactersByIds = async (ids) => {
   // To solve this you must fetch all characters passed in the array at the same time
   // use the `fetchCharacterById` function above to make this work
   //*  write code to pass test ⬇ ️
-  let arr = [];
-  let answer = undefined;
-  for (const id of ids) {
-    arr.push(await fetchCharacterById(id));
-    //  billy.then((object) => arr.push(object)).then(() => arr);
-  }
-  console.log(arr);
-  return arr;
+  let arr = ids.map((id) => fetchCharacterById(id));
+  return Promise.all(arr)
+    .then((results) => results)
+    .catch(() => []);
 };

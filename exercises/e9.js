@@ -26,9 +26,7 @@ export function iterate(arg) {
 
 export function alwaysThrows() {
   // Your code goes here...
-  if (true) {
-    throw new Error("OH NOES");
-  }
+  throw new Error("OH NOES");
 }
 /**
  * @task
@@ -41,11 +39,8 @@ export function alwaysThrows() {
 
 export function onReject(entry) {
   // Your code goes here...
-  if (entry.message) {
-    console.log(entry.message);
-  } else {
-    console.log(entry);
-  }
+  const valueToLog = entry.message || entry;
+  console.log(valueToLog);
 }
 
 /**
@@ -70,7 +65,7 @@ export function onReject(entry) {
  */
 
 // Your code goes here...
-export const promise = Promise.resolve(iterate(0))
+export const promise = Promise.resolve(iterate(1))
   .then((val) => iterate(val))
   .then((val) => iterate(val))
   .then((val) => iterate(val))

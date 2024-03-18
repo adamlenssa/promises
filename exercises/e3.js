@@ -17,7 +17,7 @@
 export const getPromise = (num) => {
   // Your code goes here...
   if (typeof num == "number" && num == Math.floor(num)) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       resolve(num);
     });
   } else {
@@ -38,15 +38,10 @@ export const getPromise = (num) => {
  */
 export const updateSumValue = () => {
   // Your code goes here...
-  const onFulfilled = (data) => {
-    return data;
-  };
   let sum = 2;
-  const total = getPromise(120).then(onFulfilled);
-  const number = async () => {
-    sum += await total;
-  };
-  return (sum += 8);
+  getPromise(120).then((data) => (sum += data));
+  sum += 8;
+  return sum;
 };
 
 // === TEST YOURSELF ===
